@@ -1,0 +1,17 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+
+{% for result in results %}
+<img src={{ result.pop('Foto') }} width="200">
+<table>
+    {% for param in result %}
+    <tr>
+        <td>{{ param }}</td>
+        <td>{{ result[param] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endfor %}
+
+{% endblock content %}
