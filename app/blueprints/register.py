@@ -31,7 +31,7 @@ def login_post():
         return redirect(url_for('register.login')) # if the user doesn't exist or password is wrong, reload the page
 
     if login_user(user, remember=remember):
-        return redirect(url_for('register.index'))
+        return redirect(request.args.get('next', url_for('register.index')))
     return "Error de Login"
 
 @bp.post('/')
@@ -75,3 +75,22 @@ def update(id):
     db.session.add(staff)
     db.session.commit()
     return redirect(url_for('staff.get_only_staff', id=staff.id))
+
+@bp.route('/extra/<id>')
+@login_required
+def extra_view(id):
+    staff = Staff.query.get_or_404(id)
+    return render_template('register_extra.jinja', name=current_user.name, staff=staff)
+
+@bp.post('/extra/<id>')
+@login_required
+def add_extra(id):
+    extra = Extra()
+    extra.nombre = request.form.get('nombre')
+    extra.valor = request.form.get('valor')
+    extra.staff_id = id
+
+    db.session.add(extra)
+    db.session.commit()
+    flash(f'Extra {extra.nombre} agregado correctamente.')
+    return redirect(url_for('register.extra_view', id=id))
