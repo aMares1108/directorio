@@ -11,62 +11,62 @@
         </div>
         {% endif %}
         {% endwith %}
-        <form method="POST" action="{{ url_for('register.new_staff') }}">
+        <form method="POST" action="{{ url_for('register.new_staff') if not staff else url_for('register.update', id=staff.id) }}">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="nombre" placeholder="Nombre del staff" autofocus="">
+                    <input class="input is-large" type="text" name="nombre" placeholder="Nombre del staff" autofocus="" value="{{staff.nombre if staff else ''}}" required>
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="gap" placeholder="### Nombre del GAP">
+                    <input class="input is-large" type="text" name="gap" placeholder="### Nombre del GAP" value="{{staff.gap if staff else ''}}">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="estiramiento" placeholder="Estiramiento">
+                    <input class="input is-large" type="text" name="estiramiento" placeholder="Estiramiento" value="{{staff.estiramiento if staff else ''}}">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="contrato" placeholder="Yo soy un hombre / una mujer">
+                    <input class="input is-large" type="text" name="contrato" placeholder="Yo soy un hombre / una mujer" value="{{staff.contrato if staff else ''}}">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="edad" placeholder="##">
+                    <input class="input is-large" type="number" name="edad" placeholder="##" value="{{staff.edad if staff else ''}}">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="foto" placeholder="/static/nombre.jpg">
+                    <input class="input is-large" type="text" name="foto" placeholder="/static/nombre.jpg" value="{{staff.foto if staff else ''}}">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="tel" maxlength="10" minlength="10" name="telefono" placeholder="##-####-####">
+                    <input class="input is-large" type="tel" maxlength="10" minlength="10" name="telefono" placeholder="##-####-####" value="{{staff.telefono if staff else ''}}" required>
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="ocupacion" placeholder="Ocupación">
+                    <input class="input is-large" type="text" name="ocupacion" placeholder="Ocupación" value="{{staff.ocupacion if staff else ''}}">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="residencia" placeholder="Residencia">
+                    <input class="input is-large" type="text" name="residencia" placeholder="Residencia" value="{{staff.residencia if staff else ''}}">
                 </div>
             </div>
 
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+            <button class="button is-block is-info is-large is-fullwidth">Agregar</button>
         </form>
     </div>
 </div>

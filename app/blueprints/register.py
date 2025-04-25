@@ -45,8 +45,30 @@ def new_staff():
     staff.edad = request.form.get('edad') or None
     staff.foto = request.form.get('foto') or None
     staff.telefono = request.form.get('telefono') or None
-    if staff.telefono:
-        staff.telefono = staff.telefono.replace(' ','')
+    staff.ocupacion = request.form.get('ocupacion') or None
+    staff.residencia = request.form.get('residencia') or None
+
+    db.session.add(staff)
+    db.session.commit()
+    return redirect(url_for('staff.get_only_staff', id=staff.id))
+
+@bp.route('/<id>')
+@login_required
+def update_view(id):
+    staff = Staff.query.get_or_404(id)
+    return render_template('register.jinja', name=current_user.name, staff=staff)
+
+@bp.post('/<id>')
+@login_required
+def update(id):
+    staff = Staff.query.get_or_404(id)
+    staff.nombre = request.form.get('nombre') or None
+    staff.gap = request.form.get('gap') or None
+    staff.estiramiento = request.form.get('estiramiento') or None
+    staff.contrato = request.form.get('contrato') or None
+    staff.edad = request.form.get('edad') or None
+    staff.foto = request.form.get('foto') or None
+    staff.telefono = request.form.get('telefono') or None
     staff.ocupacion = request.form.get('ocupacion') or None
     staff.residencia = request.form.get('residencia') or None
 
