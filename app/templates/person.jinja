@@ -1,4 +1,56 @@
 {% extends "base.jinja" %}
 {% block content %}
-
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3 text-center">
+            <img class="thumbnail img-fluid mx-auto" src="{{person.foto}}" alt="Staff {{person.nombre}}">
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="display-2" style="font-family: 'Courier New', Courier, monospace">
+            {{person.nombre}}
+        </div>
+        <div class="display-3">
+            GAP {{person.gap}}
+        </div>
+        <div class="container py-2">
+            <div class="btn-group">
+                <a href="http://wa.me/52{{person.telefono}}" target="_blank"><button type="button"
+                        class="btn btn-outline-secondary btn-lg btn-block">Aquí puedes contactarme</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 offset-1">
+            <table>
+                <tr>
+                    <th class="text-end px-2">Estiramiento: </th>
+                    <td>{{person.estiramiento}}</td>
+                </tr>
+                <tr>
+                    <th class="text-end px-2">Contrato: </th>
+                    <td>{{person.contrato}}</td>
+                </tr>
+                <tr>
+                    <th class="text-end px-2">Edad: </th>
+                    <td>{{person.edad}}</td>
+                </tr>
+                <tr>
+                    <th class="text-end px-2">Ocupación: </th>
+                    <td>{{person.ocupacion}}</td>
+                </tr>
+                <tr>
+                    <th class="text-end px-2">Residencia: </th>
+                    <td>{{person.residencia}}</td>
+                </tr>
+                {% for data in extra %}
+                <tr>
+                    <th class="text-end px-2">{{data.nombre}}: </th>
+                    <td>{{data.valor}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock content %}
