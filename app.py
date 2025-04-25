@@ -1,20 +1,11 @@
-from flask import Flask, render_template
-from pymongo import MongoClient
-from os import getenv
+from dotenv import load_dotenv
+load_dotenv()
+from logging import basicConfig, DEBUG
+basicConfig(filename='app.log', level=DEBUG, format='%(asctime)s: %(levelname)s: %(name)s: %(message)s', encoding='utf-8')
 
-app = Flask(__name__)
+from app import create_app
 
-@app.route('/')
-def hello():
-    return render_template('base.jinja')
+app = create_app()
 
-@app.route('/all')
-def person():
-    with MongoClient(getenv('MONGOURI')) as mongo:
-        results = mongo.jornada122.staff.find({},{'_id':0}).to_list()
-
-    return render_template('person.jinja', results=results)
-
-
-if __name__ == '__main__':
-    app.run()
+if __name__=='__main__':
+    app.run(debug=True)
