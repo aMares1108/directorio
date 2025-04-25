@@ -45,9 +45,11 @@ def new_staff():
     staff.edad = request.form.get('edad') or None
     staff.foto = request.form.get('foto') or None
     staff.telefono = request.form.get('telefono') or None
+    if staff.telefono:
+        staff.telefono = staff.telefono.replace(' ','')
     staff.ocupacion = request.form.get('ocupacion') or None
     staff.residencia = request.form.get('residencia') or None
 
     db.session.add(staff)
     db.session.commit()
-    return jsonify(staff)
+    return redirect(url_for('staff.get_only_staff', id=staff.id))
