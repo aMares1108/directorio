@@ -3,6 +3,7 @@ from flask_login import login_user, login_required, current_user
 from ..models.staff import Staff
 from ..models.extra import Extra
 from ..models.user import User
+from ..models.contact import Contact
 from ..extensions import db
 
 bp = Blueprint('register', __name__, url_prefix='/register')
@@ -94,3 +95,22 @@ def add_extra(id):
     db.session.commit()
     flash(f'Extra {extra.nombre} agregado correctamente.')
     return redirect(url_for('register.extra_view', id=id))
+
+@bp.route('/contact/<id>')
+@login_required
+def contact_view(id):
+    staff = Staff.query.get_or_404(id)
+    return render_template('register_contact.jinja', name=current_user.name, staff=staff)
+
+@bp.post('/contact/<id>')
+@login_required
+def add_contact(id):
+    contact = Contact()
+    contact.nombre = request.form.get('nombre')
+    contact.telefono = request.form.get('telefono')
+    contact.staff_id = id
+
+    db.session.add(contact)
+    db.session.commit()
+    flash(f'Contacto {contact.nombre} agregado correctamente.')
+    return redirect(url_for('register.contact_view', id=id))

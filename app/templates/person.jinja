@@ -49,6 +49,31 @@
                     <td>{{data.valor}}</td>
                 </tr>
                 {% endfor %}
+                {% if contacts.count()>0 %}
+                <tr>
+                    <th class="text-end px-2">Contactos de Emergencia: </th>
+                    <td>
+                        <table>
+                            {% for data in contacts %}
+                            <tr>
+                                <th class="text-end px-2">
+                                    {{data.nombre}}:
+                                </th>
+                                <td>
+                                    {{data.telefono}}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="http://wa.me/52{{data.telefono}}" target="_blank"><button type="button"
+                                                class="btn btn-outline-secondary btn-lg btn-block">Clic para contactar</button></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+                {% endif %}
             </table>
         </div>
     </div>

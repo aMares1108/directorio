@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, render_template
 from ..models.staff import Staff
 from ..models.extra import Extra
+from ..models.contact import Contact
 
 user_bp = Blueprint('staff', __name__, url_prefix='/staff')
 
@@ -24,4 +25,5 @@ def get_only_staff(id):
     results = Staff.query.order_by(Staff.prioridad.desc(), Staff.nombre).all()
     person = Staff.query.get_or_404(id)
     extra = Extra.query.filter_by(staff_id=id)
-    return render_template('person.jinja', person=person, extra=extra, results=results)
+    contact = Contact.query.filter_by(staff_id=id)
+    return render_template('person.jinja', person=person, extra=extra, results=results, contacts=contact)
